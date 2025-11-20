@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { default: bodyParser } = require('body-parser');
 const { NLP } = require('./parser.cjs')
 
 
