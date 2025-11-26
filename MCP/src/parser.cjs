@@ -1,20 +1,16 @@
-const re = reuqire('re')
-
 
 async function cleaning(message) {
-    message.encode('utf-8') // gets rid of symbols, emojis, graphic characters, or special characters
-
-    // remove HTML TAG
-    html = re.compile('[<,#*?>]')
-    message = html.sub(r,'',message)
-
-    // Remove urls:
-    url = re.compile('https?://\S+|www\.S+')
-    message = url.sub(r, '',message)
-
+    // Remove HTML tags
+    message = message.replace(/<[^>]*>/g, '')
+    
+    // Remove URLs
+    message = message.replace(/https?:\/\/\S+|www\.\S+/g, '')
+    
+    // Remove special characters but keep basic punctuation and spaces
+    message = message.replace(/[^\w\s.,!?'-]/g, '')
+    
     return message
 }
-
 
 async function preProcess(message) {
   // 1. Preprocessing and cleaning
@@ -29,7 +25,7 @@ async function preProcess(message) {
   }
 
   // 3. sanitization -> removes trailing white space
-  let message = message.trim()
+  message = message.trim()
 
   // 5. protection
   message = message
@@ -47,14 +43,17 @@ async function preProcess(message) {
 // main NLP function
 async function NLP(message) {
     if (!message) {
-        return res.status(400).json({ error: "error w message NLP"})
+        throw new Error("Message is required for NLP processing")
     }
 
     // clean message
     const cleanedMessage = await cleaning(message)
 
     // pre process message
-    const preProcessedMessage = await preProcess(cleanedMessage)
+    const parsedMessage = await preProcess(cleanedMessage)
+
+
+    return { parsedMessage }
 
 
 
@@ -64,4 +63,4 @@ async function NLP(message) {
 
 }
 
-modules.export = { NLP }
+module.exports = { NLP }
