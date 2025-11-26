@@ -29,6 +29,12 @@ app.post("/chat", async (req, res) => {
         const { parsedMessage } = await NLP(message)
         console.log(parsedMessage)
 
+        // get actions from message
+
+
+
+
+
         
         
 
