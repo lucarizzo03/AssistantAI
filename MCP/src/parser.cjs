@@ -54,13 +54,6 @@ async function NLP(message) {
 
 
     return { parsedMessage }
-
-
-
-
-
-
-
 }
 
 module.exports = { NLP }

@@ -28,7 +28,9 @@ app.post("/chat", async (req, res) => {
         // send message to get parsed/cleaned
         const { parsedMessage } = await NLP(message)
         console.log(parsedMessage)
-        res.json({ parsedMessage })
+
+        
+        
 
         
 
