@@ -12,7 +12,7 @@ async function getAction(parsedMessage) {
         model: "gpt-5.1",
         input: 
         [
-            {role: "user", message},
+            {role: "user", parsedMessage},
             {role: "system", systemPrompt}
         ],
         ...(context || []).map(c => ({ role: "assistant", content: c })),
@@ -31,8 +31,7 @@ async function getAction(parsedMessage) {
 
     return response.output[0].content[0].json;
 
-
-
-
-    
 }
+
+
+module.exports = { getAction }
